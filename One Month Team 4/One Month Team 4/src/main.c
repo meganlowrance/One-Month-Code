@@ -34,6 +34,8 @@
 #include <Drivers/uart.h>
 
 void TCC0_init(uint16_t period);
+void adca_init(void);
+uint16_t adc_read(void);
 
 int main (void)
 {	/* Insert system clock initialization code here (sysclk_init()). */
@@ -45,6 +47,11 @@ int main (void)
 	PORTQ.OUT = 0x00;
 	TCC0_init(62499);
 	uart_terminal_init();
+	adca_init();
+	while(1)
+	{
+		adc_read();
+	}
 	
 
 	
@@ -59,9 +66,12 @@ void TCC0_init(uint16_t period)
 			TCC0.CTRLB = 0x03;
 			TCC0.PER = period;
 			TCC0.CCA = TCE0.PER - (TCC0.PER/10);
+			
 }
 void adca_init(void)
 {
+	sysclk_enable_peripheral_clock(&ADCA);
+	PORTA.DIR = 0x01;
 	ADCA.CTRLA = 0x01;
 	ADCA.CTRLB = 0x00;
 	ADCA.REFCTRL = 0x10;
@@ -69,12 +79,15 @@ void adca_init(void)
 	ADCA.CAL = adc_get_calibration_data(ADC_CAL_ADCA);
 	ADCA.CH0.CTRL = 0x01;
 	ADCA.CH0.MUXCTRL = 0x00;
+
 	
 }
 uint16_t adc_read(void)
 {
-	ADCA.CH0.CTRL = 0x80;
-	while(!(ADCA.CH0.INTFLAGS));
-	return ADCA.CH0.RES;
+	ADCA.CH0.CTRL |= 0x80;
+	while(ADCA.CH0.INTFLAGS == 0);
+	ADCA.CH0.INTFLAGS = 0; 
+	uint16_t adc_reading = ADCA.CH0.RES;
+	printf("adc reading = %u",adc_reading);
 	
 }
