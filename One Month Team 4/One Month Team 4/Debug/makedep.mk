@@ -28,5 +28,7 @@ src\ASF\xmega\drivers\cpu\ccp.s
 
 src\ASF\common\boards\user_board\init.c
 
+src\Drivers\uart.c
+
 src\main.c
 

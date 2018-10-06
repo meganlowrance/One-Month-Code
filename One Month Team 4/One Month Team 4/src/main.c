@@ -1,4 +1,4 @@
-/**
+/*
  * \file
  *
  * \brief Empty user application template
@@ -31,24 +31,42 @@
 #include <asf.h>
 #include <adc.h>
 #include <math.h>
+#include <Drivers/uart.h>
 
-
+void TCC0_init(uint16_t period);
 
 int main (void)
-{
-	/* Insert system clock initialization code here (sysclk_init()). */
+{	/* Insert system clock initialization code here (sysclk_init()). */
 
 	board_init();
 
 	/* Insert application code here, after the board has been initialized. */
 	PORTQ.DIR = 0x08;
 	PORTQ.OUT = 0x00;
+	TCC0_init(62499);
+	uart_terminal_init();
+	
 	while (1)
+	
 	{
 		PORTQ.OUT = 0x00;
 		delay_ms(500); // creates  0.5 sec delay
 		PORTQ.OUT  = 0x008; 
-		delay_ms(500);
+		
+		
+		
+		
 	}
 	
+}
+
+
+void TCC0_init(uint16_t period)
+{
+	sysclk_enable_peripheral_clock(&TCC0);
+	sysclk_enable_module(SYSCLK_PORT_C, SYSCLK_HIRES);
+			TCC0.CTRLA = 0x07;
+			TCC0.CTRLB = 0x03;
+			TCC0.PER = period;
+			TCC0.CCA = TCE0.PER - (TCC0.PER/10);
 }

@@ -505,6 +505,12 @@
     <None Include="src\ASF\xmega\utils\compiler.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="src\Drivers\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Drivers\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\main.c">
       <SubType>compile</SubType>
     </Compile>

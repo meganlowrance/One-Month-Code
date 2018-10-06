@@ -1,4 +1,4 @@
-src/main.d src/main.o: ../src/main.c ../src/asf.h \
+src/Drivers/uart.d src/Drivers/uart.o: ../src/Drivers/uart.c ../src/asf.h \
  ../src/ASF/xmega/drivers/adc/adc.h ../src/ASF/xmega/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
@@ -57,7 +57,6 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/xmega/utils/status_codes.h \
  ../src/ASF/common/services/serial/xmega_usart/usart_serial.h \
  ../src/ASF/xmega/drivers/usart/usart.h ../src/config/conf_usart_serial.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h \
  ../src/Drivers/uart.h
 
 ../src/asf.h:
@@ -189,7 +188,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 ../src/ASF/xmega/drivers/usart/usart.h:
 
 ../src/config/conf_usart_serial.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\math.h:
 
 ../src/Drivers/uart.h:
