@@ -38,7 +38,7 @@ void TCC0_init(uint16_t period);
 int main (void)
 {	/* Insert system clock initialization code here (sysclk_init()). */
 
-	board_init();
+	sysclk_init();
 
 	/* Insert application code here, after the board has been initialized. */
 	PORTQ.DIR = 0x08;
@@ -46,17 +46,7 @@ int main (void)
 	TCC0_init(62499);
 	uart_terminal_init();
 	
-	while (1)
-	
-	{
-		PORTQ.OUT = 0x00;
-		delay_ms(500); // creates  0.5 sec delay
-		PORTQ.OUT  = 0x008; 
-		
-		
-		
-		
-	}
+
 	
 }
 
@@ -69,4 +59,22 @@ void TCC0_init(uint16_t period)
 			TCC0.CTRLB = 0x03;
 			TCC0.PER = period;
 			TCC0.CCA = TCE0.PER - (TCC0.PER/10);
+}
+void adca_init(void)
+{
+	ADCA.CTRLA = 0x01;
+	ADCA.CTRLB = 0x00;
+	ADCA.REFCTRL = 0x10;
+	ADCA.PRESCALER = 0x05;
+	ADCA.CAL = adc_get_calibration_data(ADC_CAL_ADCA);
+	ADCA.CH0.CTRL = 0x01;
+	ADCA.CH0.MUXCTRL = 0x00;
+	
+}
+uint16_t adc_read(void)
+{
+	ADCA.CH0.CTRL = 0x80;
+	while(!(ADCA.CH0.INTFLAGS));
+	return ADCA.CH0.RES;
+	
 }
