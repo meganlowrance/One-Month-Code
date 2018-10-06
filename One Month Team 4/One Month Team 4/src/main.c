@@ -29,6 +29,10 @@
  * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 #include <asf.h>
+#include <adc.h>
+#include <math.h>
+
+
 
 int main (void)
 {
@@ -37,4 +41,14 @@ int main (void)
 	board_init();
 
 	/* Insert application code here, after the board has been initialized. */
+	PORTQ.DIR = 0x08;
+	PORTQ.OUT = 0x00;
+	while (1)
+	{
+		PORTQ.OUT = 0x00;
+		delay_ms(500); // creates  0.5 sec delay
+		PORTQ.OUT  = 0x008; 
+		delay_ms(500);
+	}
+	
 }
